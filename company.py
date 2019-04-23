@@ -33,10 +33,15 @@ class Employee:
         # By convention, it should be called by the class itself (not the instance)
         cls.raise_amount = amount
 
+    @classmethod
+    def from_string(cls, employee_string):
+        # Alternative classmethod constructor to create instance by extracting details from a string
+        first, last, pay = employee_string.split('-')
+        return cls(first, last, int(pay))
 
-employee_1 = Employee('Aditya', 'Kumar', 10000)
-employee_2 = Employee('Test', 'Name', 12000)
 
-Employee.set_raise_amount(1.05)
-print(employee_1.raise_amount)
-print(employee_2.raise_amount)
+employee_1 = Employee('Test', 'Name', 12000)
+employee_2 = Employee.from_string('Aditya-Kumar-10000')
+
+print(employee_1.fullname())
+print(employee_2.fullname())
