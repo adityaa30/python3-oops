@@ -1,3 +1,5 @@
+from datetime import datetime
+
 class Employee:
     """
     Simple Class representing an Employee in any Company.
@@ -39,9 +41,18 @@ class Employee:
         first, last, pay = employee_string.split('-')
         return cls(first, last, int(pay))
 
+    @staticmethod
+    def is_workday(day):
+        # Static method has similar logic as the class but does not have class instance as argument
+        if day.weekday() == 5 or day.weekday() == 6:
+            return False
+        return True
+
 
 employee_1 = Employee('Test', 'Name', 12000)
 employee_2 = Employee.from_string('Aditya-Kumar-10000')
 
 print(employee_1.fullname())
 print(employee_2.fullname())
+
+print(employee_1.is_workday(datetime.now()))
