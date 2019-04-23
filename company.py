@@ -1,5 +1,6 @@
 from datetime import datetime
 
+
 class Employee:
     """
     Simple Class representing an Employee in any Company.
@@ -49,10 +50,59 @@ class Employee:
         return True
 
 
-employee_1 = Employee('Test', 'Name', 12000)
-employee_2 = Employee.from_string('Aditya-Kumar-10000')
+class Developer(Employee):
+    """
+    Class inheriting properties of Employee class
+    """
+    # Changing the raise amount only for developers. Thereby, only Developers will be affected
+    # Not breaking any code in Employee class
+    raise_amount = 1.10
 
-print(employee_1.fullname())
-print(employee_2.fullname())
+    def __init__(self, first, last, pay, prog_lang):
+        # Using parent's class constructor to initialize variables of parent class. (Clean code)
+        # Employee.__init__(self, first, last, pay) also works
+        super().__init__(first, last, pay)
+        self.prog_lang = prog_lang
 
-print(employee_1.is_workday(datetime.now()))
+
+class Manager(Employee):
+    """
+    Class inheriting properties of Employee class
+    """
+
+    def __init__(self, first, last, pay, employees=None):
+        super().__init__(first, last, pay)
+        if employees is None:
+            self.employees = []
+        else:
+            self.employees = employees
+
+    def add_employee(self, employee):
+        if employee not in self.employees:
+            self.employees.append(employee)
+
+    def remove_employee(self, employee):
+        if employee in self.employees:
+            self.employees.remove(employee)
+
+    def print_employees(self):
+        for employee in self.employees:
+            print(f'-> {employee.fullname()}')
+
+
+dev_1 = Developer('Aditya', 'Kumar', 12000, 'Python')
+dev_2 = Developer('Test', 'Name', 10000, 'Java')
+
+manager_1 = Manager('Manager', 'Man', 90000, employees=[dev_1])
+
+# print(dev_1.email)
+# print(dev_1.prog_lang)
+
+print(manager_1.email)
+# manager_1.print_employees()
+
+manager_1.add_employee(dev_2)
+
+# manager_1.print_employees()
+manager_1.remove_employee(dev_2)
+manager_1.print_employees()
