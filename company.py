@@ -38,6 +38,13 @@ class Employee:
     def fullname(self, name):
         # Setter method for property fullname which automatically changes the first & last name as the full name changes
         self.first, self.last = name.split(' ')
+
+    @fullname.deleter
+    def fullname(self):
+        # Deletes the fullname, also automatically delete the first & last name
+        # Syntax: `del <class instance>.fullname`
+        print('Delete Name!')
+        self.first, self.last = None, None
         
 
     def apply_raise(self):
@@ -130,4 +137,7 @@ dev_2 = Developer('Test', 'Name', 10000, 'Java')
 print(dev_1 + dev_2)
 print(dev_1.fullname)
 dev_1.fullname = 'Second Name'
+print(dev_1.fullname)
+
+del dev_1.fullname
 print(dev_1.fullname)
