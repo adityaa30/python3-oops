@@ -1,3 +1,7 @@
+"""
+Simple code with most of functions in python3 for OOPS
+"""
+
 from datetime import datetime
 
 
@@ -45,7 +49,6 @@ class Employee:
         # Syntax: `del <class instance>.fullname`
         print('Delete Name!')
         self.first, self.last = None, None
-        
 
     def apply_raise(self):
         # Using self here as raise_amount may be different for different Employees
