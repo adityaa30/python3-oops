@@ -34,6 +34,12 @@ class Employee:
     def fullname(self):
         return f'{self.first} {self.last}'
 
+    @fullname.setter
+    def fullname(self, name):
+        # Setter method for property fullname which automatically changes the first & last name as the full name changes
+        self.first, self.last = name.split(' ')
+        
+
     def apply_raise(self):
         # Using self here as raise_amount may be different for different Employees
         self.pay = self.pay * self.raise_amount
@@ -122,4 +128,6 @@ dev_1 = Developer('Aditya', 'Kumar', 12000, 'Python')
 dev_2 = Developer('Test', 'Name', 10000, 'Java')
 
 print(dev_1 + dev_2)
-print(dev_1.email)
+print(dev_1.fullname)
+dev_1.fullname = 'Second Name'
+print(dev_1.fullname)
