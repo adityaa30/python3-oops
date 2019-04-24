@@ -1,6 +1,8 @@
 from datetime import datetime
 
 
+# Dunder methods: Methods with the format __<method name>__ (Double underscore = Dunder)
+
 class Employee:
     """
     Simple Class representing an Employee in any Company.
@@ -16,13 +18,19 @@ class Employee:
         self.first = first
         self.last = last
         self.pay = pay
-        self.email = first + '.' + last + '@company.com'
+        # self.email = first + '.' + last + '@company.com'
 
         # Incrementing the count of each employee when the constructor is called
         # NOTE: We use <class name>.<class variable> syntax to acces the variable as we want the count_employee to be same in
         # all the instances
         Employee.count_employee += 1
 
+    # Property decorator makes methods to be accesible like an attribute
+    @property
+    def email(self):
+        return f'{self.first}.{self.last}@email.com'
+
+    @property
     def fullname(self):
         return f'{self.first} {self.last}'
 
@@ -49,6 +57,18 @@ class Employee:
             return False
         return True
 
+    # Dunder methods
+    def __repr__(self):
+        return f"Employee('{self.first}', '{self.last}', {self.pay})"
+
+    def __str__(self):
+        return f"{self.fullname()} - {self.email}"
+
+    def __add__(self, other):
+        # Operator overriding -> addition (+)
+        # Returs the total pay of the current & other employee
+        return self.pay + other.pay
+
 
 class Developer(Employee):
     """
@@ -63,6 +83,10 @@ class Developer(Employee):
         # Employee.__init__(self, first, last, pay) also works
         super().__init__(first, last, pay)
         self.prog_lang = prog_lang
+
+    # Dunder methods
+    def __repr__(self):
+        return f"Developer('{self.first}', '{self.last}', {self.pay})"
 
 
 class Manager(Employee):
@@ -89,20 +113,13 @@ class Manager(Employee):
         for employee in self.employees:
             print(f'-> {employee.fullname()}')
 
+    # Dunder methods
+    def __repr__(self):
+        return f"Manager('{self.first}', '{self.last}', {self.pay})"
+
 
 dev_1 = Developer('Aditya', 'Kumar', 12000, 'Python')
 dev_2 = Developer('Test', 'Name', 10000, 'Java')
 
-manager_1 = Manager('Manager', 'Man', 90000, employees=[dev_1])
-
-# print(dev_1.email)
-# print(dev_1.prog_lang)
-
-print(manager_1.email)
-# manager_1.print_employees()
-
-manager_1.add_employee(dev_2)
-
-# manager_1.print_employees()
-manager_1.remove_employee(dev_2)
-manager_1.print_employees()
+print(dev_1 + dev_2)
+print(dev_1.email)
